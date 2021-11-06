@@ -41,7 +41,7 @@ export default function App() {
         value={password}
         placeholder="Contraseña"
       />
-      <Button title="Press me" onPress={() => verificarUsuario()} />
+      <Button title="Press me" onPress={() => Alert.alert('¡Presionaste el botón!')} />
     </View>
   );
 }
