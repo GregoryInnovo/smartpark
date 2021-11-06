@@ -1,16 +1,45 @@
 import React from "react";
 import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import MapView, { Marker } from "react-native-maps";
 
-const Map = () => {
+class Map extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      region: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      markers: {
+        latlng: {
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        title: "info",
+        description: "holi",
+      },
+    };
+  }
 
-  return (
-    <View style={styles.container}>
-      <Text>Map screen</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-};
+  render() {
+    return (
+      <View style={styles.container}>
+        <MapView
+          style={{ alignSelf: "stretch", height: "100%" }}
+          region={this.state.region}
+        >
+          <Marker coordinate={this.state.region} title="Marker" />
+        </MapView>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
+}
 
 export default Map;
 
@@ -21,19 +50,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  // map styles
-  page: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF",
-  },
-  containerMap: {
-    height: 560,
-    width: "100%",
-    // backgroundColor: 'tomato'
-  },
-  map: {
-    flex: 1,
-  },
 });
+
+// const [mapRegion, setmapRegion] = React.useState({
+//   latitude: 37.78825,
+//   longitude: -122.4324,
+//   latitudeDelta: 0.0922,
+//   longitudeDelta: 0.0421,
+// });
