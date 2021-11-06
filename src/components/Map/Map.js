@@ -49,8 +49,18 @@ class Map extends React.Component {
       /**
        * Sergio code
        */
+      let limit = Object.keys(data.zonesMarkersSH["Santa Helena"]).length;
+      console.log(limit);
+      let element = [];
+      for (let index = 0; index < limit; index++) {
+        element.push(data.zonesMarkersSH["Santa Helena"][index]);
+        console.log(data.zonesMarkersSH["Santa Helena"][index]);
+        console.log("------------------");
+      }
+      this.setState({
+        markers: element
+      });
 
-      
     }
   }
 
