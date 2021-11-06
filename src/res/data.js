@@ -109,61 +109,61 @@ const zonesMarkersT = {
 };
 const zonesMarkersSH = {
   "Santa Helena": [
-    {
 
-      markers: [
-        {
-          latlng: {
-            latitude: 3.4299366219248784,
-            longitude: -76.52104898196518,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          },
-          title: "Slot 1",
-          description: "Estado: Ocupado",
-        },
-        {
-          latlng: {
-            latitude: 3.430298639087056,
-            longitude: -76.52230523011119,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          },
-          title: "Slot 2",
-          description: "Estado: Ocupado",
-        },
-        {
-          latlng: {
-            latitude: 3.4298993005601632,
-            longitude: -76.52041711905842,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          },
-          title: "Slot 3",
-          description: "Estado: Disponible",
-        },
-        {
-          latlng: {
-            latitude: 3.4305550766191772,
-            longitude: -76.521774210051,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          },
-          title: "Slot 4",
-          description: "Estado: Disponible",
-        },
-        {
-          latlng: {
-            latitude: 3.4310290575176854,
-            longitude: -76.52053291724008,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          },
-          title: "Slot 5",
-          description: "Estado: Disponible",
-        },
-      ],
+
+
+    {
+      latlng: {
+        latitude: 3.4299366219248784,
+        longitude: -76.52104898196518,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      title: "Slot 1",
+      description: "Estado: Ocupado",
     },
+    {
+      latlng: {
+        latitude: 3.430298639087056,
+        longitude: -76.52230523011119,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      title: "Slot 2",
+      description: "Estado: Ocupado",
+    },
+    {
+      latlng: {
+        latitude: 3.4298993005601632,
+        longitude: -76.52041711905842,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      title: "Slot 3",
+      description: "Estado: Disponible",
+    },
+    {
+      latlng: {
+        latitude: 3.4305550766191772,
+        longitude: -76.521774210051,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      title: "Slot 4",
+      description: "Estado: Disponible",
+    },
+    {
+      latlng: {
+        latitude: 3.4310290575176854,
+        longitude: -76.52053291724008,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      title: "Slot 5",
+      description: "Estado: Disponible",
+    },
+
+
   ],
 };
 
