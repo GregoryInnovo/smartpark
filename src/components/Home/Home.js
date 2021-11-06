@@ -15,7 +15,7 @@ const Home = ({ navigation }) => {
 
       <Button
         title="Ir al menú de selección"
-        onPress={() => navigation.navigate("Menú", )}
+        onPress={() => navigation.navigate("Menú")}
       />
     </View>
   );

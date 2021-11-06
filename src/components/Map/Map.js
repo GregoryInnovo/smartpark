@@ -38,6 +38,10 @@ class Map extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.navigation.setOptions({title: this.props.route.params.zoneName});
+  }
+  
   render() {
     return (
       <View style={styles.container}>
