@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, Button, Alert, Image } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button, Alert, Image, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 
@@ -10,27 +10,65 @@ const Separator = ({ navigation }) => (
 const Selection = ({ navigation }) => {
 
     return (
-        <View style={styles.container}>
-            <Text>Escoge la zona en la que buscas parqueaderos</Text>
-            <StatusBar style="auto" />
+        <ScrollView>
+            <View style={styles.container}>
+                <Text>Escoge la zona en la que buscas parqueaderos</Text>
+                <StatusBar style="auto" />
 
-            <Separator />
+                <Separator />
 
-            <Image
-                style={styles.tinyLogo}
-                source={{
-                    uri: 'https://upload.wikimedia.org/wikipedia/commons/2/21/30-029_Parque_Perro_cali.JPG',
-                }}
-            />
+                <Image
+                    style={styles.tinyLogo}
+                    source={{
+                        uri: 'https://upload.wikimedia.org/wikipedia/commons/2/21/30-029_Parque_Perro_cali.JPG',
+                    }}
+                />
 
-            <Separator />
+                <Separator />
 
-            <Text>Publica</Text>
-            <Button
-                title="Parque del Perro"
-                onPress={() => navigation.navigate('Map')}
-            />
-        </View>
+                <Text>Publica</Text>
+                <Button
+                    title="Parque del Perro"
+                    onPress={() => Alert.alert("Has seleccionado 'Parque del Perro'")}
+                />
+
+                <Separator />
+
+                <Image
+                    style={styles.tinyLogo}
+                    source={{
+                        uri: 'https://i.pinimg.com/originals/42/f4/fa/42f4fa61bf46e2367eec2db468ce8445.jpg',
+                    }}
+                />
+
+                <Separator />
+
+                <Text>Publica</Text>
+                <Button
+                    title="Tequendama"
+                    onPress={() => Alert.alert("Has seleccionado 'Tequendama'")}
+                />
+
+                <Separator />
+
+                <Image
+                    style={styles.tinyLogo}
+                    source={{
+                        uri: 'https://lh3.googleusercontent.com/proxy/wO9mhm18uwdtg2NxT7fDs9pYlzZ1i1Hbq796jlP1_dFkfSkDZUX8EG5l3xEji9-AhtVAwQktllKwxxMtQtorCkFLXxfS2Z7-LUadfbOwX2vAJkGPq2yGtvZj7SBB5Ey1DmR-_Q',
+                    }}
+                />
+
+                <Separator />
+
+                <Text>Publica</Text>
+                <Button
+                    title="Santa Helena"
+                    onPress={() => Alert.alert("Has seleccionado 'Santa Helena'")}
+                />
+
+                <Separator />
+            </View>
+        </ScrollView>
     );
 };
 
