@@ -3,12 +3,13 @@ import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import MapView, { Marker } from "react-native-maps";
 import data from "../../res/data";
+import region from "../../res/region";
 
 class Map extends React.Component {
   constructor() {
     super();
     this.state = {
-      region: {
+      regionMap: {
         latitude: 3.435899466564378,
         longitude: -76.5453948911183,
         latitudeDelta: 0.0922,
@@ -22,6 +23,11 @@ class Map extends React.Component {
     this.props.navigation.setOptions({
       title: this.props.route.params.zoneName,
     });
+
+    /**
+     * Set markers depends of the zone
+     */
+
     let { zoneName } = this.props.route.params;
 
     if (zoneName === "Parque del Perro") {
@@ -36,6 +42,8 @@ class Map extends React.Component {
       this.setState({
         markers: element,
       });
+
+      this.cambiarRegion(0);
     } else if (zoneName === "Tequendama") {
       let limit = Object.keys(data.zonesMarkersT["Tequendama"]).length;
       console.log(limit);
@@ -48,6 +56,8 @@ class Map extends React.Component {
       this.setState({
         markers: element,
       });
+
+      this.cambiarRegion(1);
     } else if (zoneName === "Santa Helena") {
       /**
        * Sergio code
@@ -63,17 +73,23 @@ class Map extends React.Component {
       this.setState({
         markers: element,
       });
+
+      this.cambiarRegion(2);
     }
   }
+
+  cambiarRegion = (val) => {
+    this.setState({ regionMap: region[val] });
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <MapView
           style={{ alignSelf: "stretch", height: "100%" }}
-          region={this.state.region}
-          // minZoomLevel={17}
-          minZoomLevel={5}
+          region={this.state.regionMap}
+          minZoomLevel={17}
+          // minZoomLevel={5}
         >
           {this.state.markers.map((marker, index) => (
             <Marker
@@ -100,10 +116,3 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
 });
-
-// const [mapRegion, setmapRegion] = React.useState({
-//   latitude: 37.78825,
-//   longitude: -122.4324,
-//   latitudeDelta: 0.0922,
-//   longitudeDelta: 0.0421,
-// });

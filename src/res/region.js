@@ -15,8 +15,8 @@ const region = [
   },
   // Santa Helena
   {
-    latitude: 3.4300469666924025,
-    longitude: -76.52362668839255,
+    latitude: 3.430502826741975,
+    longitude: -76.52090680061687,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   },
