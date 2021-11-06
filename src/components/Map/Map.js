@@ -40,10 +40,18 @@ class Map extends React.Component {
         markers: element,
       });
     } else if (zoneName === "Tequendama") {
-      /**
-       * Mafe code
-       */
 
+      let limit = Object.keys(data.zonesMarkersT["Tequendama"]).length;
+      console.log(limit);
+      let element = [];
+      for (let index = 0; index < limit; index++) {
+        element.push(data.zonesMarkersT["Tequendama"][index]);
+        console.log(data.zonesMarkersT["Tequendama"][index]);
+        console.log("------------------");
+      }
+      this.setState({
+        markers: element,
+      });
 
     } else if (zoneName === "Santa Helena") {
       /**
