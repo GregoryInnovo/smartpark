@@ -13,16 +13,28 @@ class Map extends React.Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      markers: {
-        latlng: {
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+      markers: [
+        {
+          latlng: {
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          },
+          title: "Slot 1",
+          description: "Estado: Ocupado",
         },
-        title: "info",
-        description: "holi",
-      },
+        {
+          latlng: {
+            latitude: 37.787745,
+            longitude: -122.431995,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          },
+          title: "Slot 2",
+          description: "Estado: Ocupado",
+        },
+      ],
     };
   }
 
@@ -30,12 +42,24 @@ class Map extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          style={{ alignSelf: "stretch", height: "100%" }}
+          style={{ alignSelf: "stretch", height: "90%" }}
           region={this.state.region}
+          minZoomLevel={17}
         >
-          <Marker coordinate={this.state.region} title="Marker" />
+          {this.state.markers.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={marker.latlng}
+              title={marker.title}
+              description={marker.description}
+            />
+          ))}
         </MapView>
         <StatusBar style="auto" />
+        <Button
+          title="Regresar"
+          onPress={() => Alert.alert("¡Presionaste el botón!")}
+        />
       </View>
     );
   }
@@ -48,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
 });
 

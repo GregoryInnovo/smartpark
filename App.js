@@ -22,5 +22,5 @@ export default function App() {
       });
   };
 
-  return <Selection />;
+  return <Map />;
 }
