@@ -1,30 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 const Home = ({ navigation }) => {
-  const [username, onChangeUsername] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
-
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeUsername}
-        value={username}
-        placeholder="Nombre de usuario"
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangePassword}
-        value={password}
-        placeholder="Contraseña"
-      />
+      <Text style={styles.textTitle}>Smart Park</Text>
+      <Text style={styles.textDescription}>
+        Bienvenid@ a Smart Park, en el siguiente botón irás al menú de selección
+        para escoger que zonas deseas y saber la disponibilidad de un
+        parqueadero.
+      </Text>
+
       <Button
-        title="Press me"
-        onPress={() => navigation.navigate('Menú')}
+        title="Ir al menú de selección"
+        onPress={() => navigation.navigate("Menú", )}
       />
     </View>
   );
@@ -45,19 +36,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
-  // map styles
-  /*   page: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#F5FCFF",
-    },
-    containerMap: {
-      height: 560,
-      width: "100%",
-      // backgroundColor: 'tomato'
-    },
-    map: {
-      flex: 1,
-    }, */
+  textTitle: {
+    fontWeight: "bold",
+    fontSize: 26,
+  },
+  textDescription: {
+    fontSize: 15,
+    textAlign: "justify",
+    padding: 14,
+  },
 });
