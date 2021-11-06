@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, TextInput, Button, Alert, Image } from "react-n
 import { StatusBar } from "expo-status-bar";
 
 
-const Separator = () => (
+const Separator = ({ navigation }) => (
     <View style={styles.separator} />
 );
 
-const Selection = () => {
+const Selection = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
@@ -28,7 +28,7 @@ const Selection = () => {
             <Text>Publica</Text>
             <Button
                 title="Parque del Perro"
-                onPress={() => Alert.alert("Has seleccionado 'Parque del Perro'")}
+                onPress={() => navigation.navigate('Map')}
             />
         </View>
     );

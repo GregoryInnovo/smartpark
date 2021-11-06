@@ -42,7 +42,7 @@ class Map extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
-          style={{ alignSelf: "stretch", height: "90%" }}
+          style={{ alignSelf: "stretch", height: "100%" }}
           region={this.state.region}
           minZoomLevel={17}
         >
@@ -56,10 +56,6 @@ class Map extends React.Component {
           ))}
         </MapView>
         <StatusBar style="auto" />
-        <Button
-          title="Regresar"
-          onPress={() => Alert.alert("¡Presionaste el botón!")}
-        />
       </View>
     );
   }

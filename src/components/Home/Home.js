@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [username, onChangeUsername] = React.useState("");
   const [password, onChangePassword] = React.useState("");
 
@@ -24,7 +24,7 @@ const Home = () => {
       />
       <Button
         title="Press me"
-        onPress={() => Alert.alert("¡Presionaste el botón!")}
+        onPress={() => navigation.navigate('Menú')}
       />
     </View>
   );
