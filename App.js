@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import Home from "./src/components/Home/Home";
 import Map from "./src/components/Map/Map";
 import Selection from "./src/components/Selection/Selection";

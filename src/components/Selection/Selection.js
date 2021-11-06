@@ -3,9 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Button,
-  Alert,
   Image,
   ScrollView,
 } from "react-native";
