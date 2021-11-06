@@ -23,36 +23,31 @@ class Map extends React.Component {
       title: this.props.route.params.zoneName,
     });
     let { zoneName } = this.props.route.params;
-    // console.log(Object.keys(data.zonesMarkersPP["Parque del Perro"]).length)
 
     if (zoneName === "Parque del Perro") {
-      // Alert.alert("Parque del Perro")
-
       let limit = Object.keys(data.zonesMarkersPP["Parque del Perro"]).length;
       console.log(limit);
       let element = [];
       for (let index = 0; index < limit; index++) {
         element.push(data.zonesMarkersPP["Parque del Perro"][index]);
-        console.log(data.zonesMarkersPP["Parque del Perro"][index]);
-        console.log("------------------");
+        // console.log(data.zonesMarkersPP["Parque del Perro"][index]);
+        // console.log("------------------");
       }
       this.setState({
         markers: element,
       });
     } else if (zoneName === "Tequendama") {
-
       let limit = Object.keys(data.zonesMarkersT["Tequendama"]).length;
       console.log(limit);
       let element = [];
       for (let index = 0; index < limit; index++) {
         element.push(data.zonesMarkersT["Tequendama"][index]);
-        console.log(data.zonesMarkersT["Tequendama"][index]);
-        console.log("------------------");
+        // console.log(data.zonesMarkersT["Tequendama"][index]);
+        // console.log("------------------");
       }
       this.setState({
         markers: element,
       });
-
     } else if (zoneName === "Santa Helena") {
       /**
        * Sergio code
@@ -62,13 +57,12 @@ class Map extends React.Component {
       let element = [];
       for (let index = 0; index < limit; index++) {
         element.push(data.zonesMarkersSH["Santa Helena"][index]);
-        console.log(data.zonesMarkersSH["Santa Helena"][index]);
-        console.log("------------------");
+        // console.log(data.zonesMarkersSH["Santa Helena"][index]);
+        // console.log("------------------");
       }
       this.setState({
-        markers: element
+        markers: element,
       });
-
     }
   }
 

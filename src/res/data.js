@@ -52,7 +52,6 @@ const zonesMarkersPP = {
     },
   ],
 };
-
 const zonesMarkersT = {
   "Tequendama": [
     {
@@ -109,9 +108,6 @@ const zonesMarkersT = {
 };
 const zonesMarkersSH = {
   "Santa Helena": [
-
-
-
     {
       latlng: {
         latitude: 3.4299366219248784,
@@ -162,8 +158,6 @@ const zonesMarkersSH = {
       title: "Slot 5",
       description: "Estado: Disponible",
     },
-
-
   ],
 };
 
