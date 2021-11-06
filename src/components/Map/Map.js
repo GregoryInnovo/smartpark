@@ -44,7 +44,7 @@ class Map extends React.Component {
         <MapView
           style={{ alignSelf: "stretch", height: "100%" }}
           region={this.state.region}
-          minZoomLevel={17}
+          minZoomLevel={15}
         >
           {this.state.markers.map((marker, index) => (
             <Marker

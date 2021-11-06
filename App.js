@@ -30,7 +30,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ title: "Welcome" }}
+          options={{ title: "Bienvenid@" }}
         />
         <Stack.Screen name="Menú" component={Selection} />
         <Stack.Screen name="Map" component={Map} />
