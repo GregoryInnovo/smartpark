@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import MapView, { Marker } from "react-native-maps";
+import data from "../../res/data";
 
 class Map extends React.Component {
   constructor() {
@@ -47,7 +48,7 @@ class Map extends React.Component {
         {
           latlng: {
             latitude: 3.4356539651933384,
-            longitude:  -76.54504862865721,
+            longitude: -76.54504862865721,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           },
@@ -57,7 +58,7 @@ class Map extends React.Component {
         {
           latlng: {
             latitude: 3.4362224945879447,
-            longitude:  -76.54511658671034,
+            longitude: -76.54511658671034,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           },
@@ -65,12 +66,31 @@ class Map extends React.Component {
           description: "Estado: Disponible",
         },
       ],
-
+      markersssss: [],
     };
   }
 
   componentDidMount() {
-    this.props.navigation.setOptions({title: this.props.route.params.zoneName});
+    this.props.navigation.setOptions({
+      title: this.props.route.params.zoneName,
+    });
+    let { zoneName } = this.props.route.params;
+    if (zoneName === "Parque del Perro") {
+      // console.log(Object.keys(data["Parque del Perro"]).length)
+      // Alert.alert("Parque del Perro")
+
+      let iterator = data["Parque del Perro"].values();
+      let limit = Object.keys(data["Parque del Perro"]).length;
+      let element = []
+      for (let index = 0; index < limit; index++) {
+        element.push(data["Parque del Perro"][index]);
+        console.log(element);
+        // console.log("------------------");
+      }
+      this.setState({
+        markersssss: element,
+      });
+    }
   }
 
   render() {
@@ -81,7 +101,7 @@ class Map extends React.Component {
           region={this.state.region}
           minZoomLevel={17}
         >
-          {this.state.markers.map((marker, index) => (
+          {this.state.markersssss.map((marker, index) => (
             <Marker
               key={index}
               coordinate={marker.latlng}
