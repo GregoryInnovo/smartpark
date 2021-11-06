@@ -72,14 +72,14 @@ class Map extends React.Component {
   componentDidMount() {
     this.props.navigation.setOptions({title: this.props.route.params.zoneName});
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
         <MapView
           style={{ alignSelf: "stretch", height: "100%" }}
           region={this.state.region}
-          minZoomLevel={15}
+          minZoomLevel={17}
         >
           {this.state.markers.map((marker, index) => (
             <Marker
