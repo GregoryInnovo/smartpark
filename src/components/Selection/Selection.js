@@ -1,117 +1,156 @@
-import React from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Button,
-  Image,
+  FlatList,
+  Pressable,
   ScrollView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import Colors from "./../../res/Colors";
 
-const Separator = ({ navigation }) => <View style={styles.separator} />;
+class Selection extends Component {
+  constructor(props) {
+    super(props);
 
-const Selection = ({ navigation }) => {
-  return (
-    <ScrollView>
+    this.state = {
+      mio_data: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = async () => {
+    await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let element = [];
+        let limit = responseJson["results"].length;
+        let jsonData;
+        for (let index = 0; index < limit; index++) {
+          jsonData = {
+            id: responseJson["results"][index].name,
+            id_mio_node: responseJson["results"][index].name,
+          };
+          element.push(jsonData);
+          // console.log(responseJson["results"][index].name);
+        }
+        // let uniqueId = responseJson.id;
+        // let mioId = responseJson.name;
+
+        // element.push(jsonData);
+        this.setState({ mio_data: element });
+        console.log(element);
+      });
+  };
+
+  render() {
+    const DATA = [
+      {
+        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+        id_mio_node: "E21-CAB-345",
+      },
+      {
+        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+        id_mio_node: "E21-CZB-435",
+      },
+      {
+        id: "58694a0f-3da1-471f-bd96-145571e29d72",
+        id_mio_node: "E21-CEU-127",
+      },
+      {
+        id: "3ac68afc-c605-48d3-a4f8-fbd13da97f63",
+        id_mio_node: "T31-CCA-712",
+      },
+      {
+        id: "255356a0f-3da1-741f-bd96-145571e29d72",
+        id_mio_node: "CO1-CFP-826",
+      },
+    ];
+
+    const renderItem = ({ item }) => <Item idNode={item.id_mio_node} />;
+
+    return (
       <View style={styles.container}>
-        <Text>Escoge la zona en la que buscas parqueaderos</Text>
-        <StatusBar style="auto" />
-
-        <Separator />
-
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/2/21/30-029_Parque_Perro_cali.JPG",
-          }}
+        <Text style={styles.paragraph}>Selecciona la ruta que deseas</Text>
+        <FlatList
+          data={this.state.mio_data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
         />
-
-        <Separator />
-
-        <Text>Pública</Text>
-        <Button
-          title="Parque del Perro"
-          onPress={() => navigation.navigate("Map", {zoneName: "Parque del Perro"})}
-        />
-
-        <Separator />
-
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://i.pinimg.com/originals/42/f4/fa/42f4fa61bf46e2367eec2db468ce8445.jpg",
-          }}
-        />
-
-        <Separator />
-
-        <Text>Pública</Text>
-        <Button
-          title="Tequendama"
-          onPress={() => navigation.navigate("Map", {zoneName: "Tequendama"})}
-        />
-
-        <Separator />
-
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://lh3.googleusercontent.com/proxy/wO9mhm18uwdtg2NxT7fDs9pYlzZ1i1Hbq796jlP1_dFkfSkDZUX8EG5l3xEji9-AhtVAwQktllKwxxMtQtorCkFLXxfS2Z7-LUadfbOwX2vAJkGPq2yGtvZj7SBB5Ey1DmR-_Q",
-          }}
-        />
-
-        <Separator />
-
-        <Text>Pública</Text>
-        <Button
-          title="Santa Helena"
-          onPress={() => navigation.navigate("Map", {zoneName: "Santa Helena"})}
-        />
-
-        <Separator />
       </View>
-    </ScrollView>
-  );
-};
+    );
+  }
+}
 
+const Item = ({ idNode }) => (
+  <View style={styles.item}>
+    <View style={styles.container_node}>
+      <View>
+        <Text style={styles.title}>Ruta</Text>
+        <Text style={styles.bus_node}>{idNode}</Text>
+      </View>
+
+      <View>
+        <Pressable onPress={() => alert("Show data")} style={styles.btn_node}>
+          <Text style={styles.btn_text}>Datos</Text>
+        </Pressable>
+        <Pressable onPress={() => alert("Show alerts")} style={styles.btn_node}>
+          <Text style={styles.btn_text}>Alerta</Text>
+        </Pressable>
+      </View>
+    </View>
+  </View>
+);
 export default Selection;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
+    backgroundColor: Colors.primary,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+  paragraph: {
+    margin: 24,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: Colors.white,
   },
-  tinyLogo: {
-    width: 100,
-    height: 100,
+  container_node: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
-  separator: {
+  item: {
+    backgroundColor: Colors.secondary,
+    padding: 20,
     marginVertical: 8,
-    borderBottomColor: "#737373",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginHorizontal: 16,
+    marginBottom: 12,
   },
-  // map styles
-  /*   page: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F5FCFF",
-      },
-      containerMap: {
-        height: 560,
-        width: "100%",
-        // backgroundColor: 'tomato'
-      },
-      map: {
-        flex: 1,
-      }, */
+  title: {
+    color: Colors.white,
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  bus_node: {
+    color: Colors.white,
+    fontSize: 18,
+  },
+  btn_node: {
+    backgroundColor: Colors.primary,
+    margin: 6,
+  },
+  btn_text: {
+    color: Colors.white,
+    paddingRight: 12,
+    paddingLeft: 12,
+    paddingTop: 6,
+    paddingBottom: 6,
+  },
 });
