@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "smartpark",
-    "slug": "smartpark",
+    "name": "smartmio",
+    "slug": "smartmio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,14 +13,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "mediacollab.smartpark",
+      "package": "mediacollab.smartmio",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

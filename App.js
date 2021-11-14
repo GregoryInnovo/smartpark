@@ -2,6 +2,7 @@ import React from "react";
 import Home from "./src/components/Home/Home";
 import Map from "./src/components/Map/Map";
 import Selection from "./src/components/Selection/Selection";
+import Colors from "./src/res/Colors";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
@@ -23,16 +24,25 @@ export default function App() {
       });
   };
 
+  const settings = {
+    headerStyle: {
+      backgroundColor: Colors.secondary,
+    },
+    headerTintColor: Colors.white,
+    headerTitleStyle: {
+      fontWeight: "bold",
+    },
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          options={settings}
+          name="Smart Trip MIO"
           component={Home}
-          options={{ title: "Bienvenid@" }}
         />
-        <Stack.Screen name="Menú" component={Selection} />
-        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen options={settings} name="Menú" component={Selection} />
+        <Stack.Screen options={settings} name="Map" component={Map} />
       </Stack.Navigator>
     </NavigationContainer>
   );
