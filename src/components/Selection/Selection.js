@@ -6,7 +6,7 @@ import {
   Button,
   FlatList,
   Pressable,
-  ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Colors from "./../../res/Colors";
@@ -17,6 +17,7 @@ class Selection extends Component {
 
     this.state = {
       mio_data: [],
+      loading: false,
     };
   }
 
@@ -25,26 +26,41 @@ class Selection extends Component {
   }
 
   getData = async () => {
-    await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10`)
-      .then((response) => response.json())
+    await fetch(`http://192.168.1.10:3000/nodos`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
       .then((responseJson) => {
         let element = [];
-        let limit = responseJson["results"].length;
-        let jsonData;
-        for (let index = 0; index < limit; index++) {
-          jsonData = {
-            id: responseJson["results"][index].name,
-            id_mio_node: responseJson["results"][index].name,
-          };
-          element.push(jsonData);
-          // console.log(responseJson["results"][index].name);
-        }
-        // let uniqueId = responseJson.id;
-        // let mioId = responseJson.name;
+        let idsArray = [];
+        let limit = responseJson.length;
 
-        // element.push(jsonData);
+        for (let index = 0; index < limit; index++) {
+          let jsonData = {
+            id: responseJson[index]["_id"],
+            id_mio_node: responseJson[index]["id-mio-node"],
+          };
+          // console.log(idsArray.includes(responseJson[index]["id-mio-node"]));
+
+          if (idsArray.includes(responseJson[index]["id-mio-node"])) {
+            // the data is repeated
+          } else {
+            // the data is not repeated
+            element.push(jsonData);
+          }
+          idsArray.push(responseJson[index]["id-mio-node"]);
+        }
+
+        // console.log(element);
+
         this.setState({ mio_data: element });
-        console.log(element);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   };
 
@@ -96,10 +112,22 @@ const Item = ({ idNode }) => (
       </View>
 
       <View>
-        <Pressable onPress={() => alert("Show data")} style={styles.btn_node}>
+        <Pressable
+          onPress={() => {
+            alert(idNode);
+            // console.log(idNode);
+          }}
+          style={styles.btn_node}
+        >
           <Text style={styles.btn_text}>Datos</Text>
         </Pressable>
-        <Pressable onPress={() => alert("Show alerts")} style={styles.btn_node}>
+        <Pressable
+          onPress={() => {
+            alert(idNode);
+            // console.log(idNode);
+          }}
+          style={styles.btn_node}
+        >
           <Text style={styles.btn_text}>Alerta</Text>
         </Pressable>
       </View>
@@ -124,7 +152,7 @@ const styles = StyleSheet.create({
   container_node: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   item: {
     backgroundColor: Colors.secondary,
@@ -148,8 +176,9 @@ const styles = StyleSheet.create({
   },
   btn_text: {
     color: Colors.white,
-    paddingRight: 12,
-    paddingLeft: 12,
+    fontWeight: "bold",
+    paddingRight: 50,
+    paddingLeft: 50,
     paddingTop: 6,
     paddingBottom: 6,
   },

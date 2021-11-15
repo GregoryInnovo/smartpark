@@ -9,12 +9,7 @@ class Map extends React.Component {
   constructor() {
     super();
     this.state = {
-      regionMap: {
-        latitude: 3.435899466564378,
-        longitude: -76.5453948911183,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
+      regionMap: {},
       markers: [],
     };
   }
