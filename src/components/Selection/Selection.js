@@ -26,6 +26,11 @@ class Selection extends Component {
   }
 
   getData = async () => {
+    // Active activity indicator
+    this.setState({
+      loading: true,
+    });
+
     await fetch(`${HOST_URL}/nodos`, {
       method: "GET",
       headers: {
@@ -60,6 +65,11 @@ class Selection extends Component {
         // console.log(element);
 
         this.setState({ mio_data: element });
+
+        // Remove activity indicator
+        this.setState({
+          loading: false,
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -67,29 +77,6 @@ class Selection extends Component {
   };
 
   render() {
-    const DATA = [
-      {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        id_mio_node: "E21-CAB-345",
-      },
-      {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        id_mio_node: "E21-CZB-435",
-      },
-      {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        id_mio_node: "E21-CEU-127",
-      },
-      {
-        id: "3ac68afc-c605-48d3-a4f8-fbd13da97f63",
-        id_mio_node: "T31-CCA-712",
-      },
-      {
-        id: "255356a0f-3da1-741f-bd96-145571e29d72",
-        id_mio_node: "CO1-CFP-826",
-      },
-    ];
-
     const renderItem = ({ item }) => (
       <Item idNode={item.id_mio_node} nav={this.props} />
     );
@@ -102,6 +89,13 @@ class Selection extends Component {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
+        {this.state.loading ? (
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color="#0000ff"
+          />
+        ) : null}
       </View>
     );
   }
@@ -189,5 +183,13 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
     paddingTop: 6,
     paddingBottom: 6,
+  },
+  loader: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "gray",
+    opacity: 0.5,
+    position: "absolute",
   },
 });

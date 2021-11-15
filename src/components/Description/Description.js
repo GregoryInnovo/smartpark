@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Colors from "../../res/Colors";
 import paradas from "../../res/paradas";
@@ -19,6 +19,7 @@ class Description extends React.Component {
       hora: "ERR",
       vals: {},
       alert: "No ha habido un exceso de pasajeros en el día de hoy",
+      loading: false,
     };
   }
 
@@ -47,6 +48,11 @@ class Description extends React.Component {
    * @param {*} idMio
    */
   getASpecificElement = async (idMio) => {
+    // Active activity indicator
+    this.setState({
+      loading: true,
+    });
+
     await fetch(`${HOST_URL}/nodos/${idMio}`, {
       method: "GET",
       headers: {
@@ -84,9 +90,14 @@ class Description extends React.Component {
         this.setState({ fecha: dateData });
         this.setState({ hora: timeData });
         this.setState({ vals: jsonMIOInfo });
+
+        // Remove activity indicator
+        this.setState({
+          loading: false,
+        });
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("No connected to database", error);
       });
 
     this.separador();
@@ -224,6 +235,14 @@ class Description extends React.Component {
           source={logoMetroCali}
           style={styles.img_logo}
         />
+
+        {this.state.loading ? (
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color="#0000ff"
+          />
+        ) : null}
       </View>
     );
   }
@@ -292,5 +311,13 @@ const styles = StyleSheet.create({
   img_logo: {
     width: 240,
     height: "10%",
+  },
+  loader: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "gray",
+    opacity: 0.5,
+    position: "absolute",
   },
 });

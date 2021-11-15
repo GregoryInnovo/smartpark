@@ -8,22 +8,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  verificarUsuario = () => {
-    let URL = "https://foodhyapi.herokuapp.com/api/v1/products/7702354929657";
-
-    fetch(URL)
-      .then(async (response) => response.json())
-      .then((res) => {
-        /**
-         * Logica si el usuario y contrseña es correcta
-         *
-         */
-        // if() {
-        // } else {
-        // }
-      });
-  };
-
   const settings = {
     headerStyle: {
       backgroundColor: Colors.secondary,
