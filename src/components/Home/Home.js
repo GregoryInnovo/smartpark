@@ -11,14 +11,16 @@ const Home = ({ navigation }) => {
       <StatusBar style="auto" />
       <Image source={splashImage} style={styles.img_login} />
       <View style={styles.container_information}>
-        <Text style={styles.textTitle}>Smart Trip MIO</Text>
-        <Text style={styles.textDescription}>
-          Bienvenid@ a Smart Trio MIO, en el cual podrás obtener la información
-          de alguna ruta en particular que este transcurriendo, con el fin de
-          saber: el identificar único del MIO, la parada actual, número de
-          pasajeros en dicha ruta, la fecha y la hora. Da click en el siguiente
-          botón para ver las rutas que estan transcurriendo.
-        </Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.textTitle}>Smart Trip MIO</Text>
+          <Text style={styles.textDescription}>
+            Bienvenid@ a Smart Trio MIO, en el cual podrás obtener la
+            información de alguna ruta en particular que este transcurriendo,
+            con el fin de saber: el identificar único del MIO, la parada actual,
+            número de pasajeros en dicha ruta, la fecha y la hora. Da click en
+            el siguiente botón para ver las rutas que estan transcurriendo.
+          </Text>
+        </View>
 
         <Pressable
           style={styles.btn_login}
@@ -50,6 +52,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
   },
+  infoContainer: {
+    backgroundColor: "white",
+    maxHeight: 340,
+    width: "90%",
+    alignSelf: "center",
+    flex: 1,
+    borderRadius: 8,
+    borderRadius: 25,
+    borderColor: Colors.gray,
+    borderWidth: 1,
+    marginTop: 12,
+    marginBottom: 12,
+    padding: 30,
+  },
   input: {
     height: 40,
     margin: 12,
@@ -60,13 +76,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 26,
     padding: 14,
-    color: Colors.white,
   },
   textDescription: {
     fontSize: 15,
     textAlign: "justify",
     padding: 14,
-    color: Colors.white,
   },
   img_login: {
     width: "100%",

@@ -1,15 +1,14 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   FlatList,
   Pressable,
   ActivityIndicator,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import Colors from "./../../res/Colors";
+
 const HOST_URL = "http://192.168.1.10:3000";
 
 class Selection extends Component {

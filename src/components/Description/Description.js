@@ -189,7 +189,7 @@ class Description extends React.Component {
             <Text style={styles.infoDescription}>
               El número total de pasajeros actualmente es de {vals.pasajeros}, y
               la última parada donde el MIO paso fue: {vals.estacion}. La última
-              actualización de la ruta fue {fecha} a las {hora}.
+              actualización de la ruta fue el {fecha} a las {hora}.
             </Text>
           </View>
         ) : (
