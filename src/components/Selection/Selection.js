@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Colors from "./../../res/Colors";
+const HOST_URL = "http://192.168.1.10:3000";
 
 class Selection extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Selection extends Component {
   }
 
   getData = async () => {
-    await fetch(`http://192.168.1.10:3000/nodos`, {
+    await fetch(`${HOST_URL}/nodos`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -38,7 +39,7 @@ class Selection extends Component {
         let element = [];
         let idsArray = [];
         let limit = responseJson.length;
-
+        // console.log("-------------");
         for (let index = 0; index < limit; index++) {
           let jsonData = {
             id: responseJson[index]["_id"],
@@ -48,8 +49,10 @@ class Selection extends Component {
 
           if (idsArray.includes(responseJson[index]["id-mio-node"])) {
             // the data is repeated
+            // console.log("no push");
           } else {
             // the data is not repeated
+            // console.log("push");
             element.push(jsonData);
           }
           idsArray.push(responseJson[index]["id-mio-node"]);
@@ -116,7 +119,10 @@ const Item = ({ idNode, nav }) => (
       <View>
         <Pressable
           onPress={() =>
-            nav.navigation.navigate("Description", { mioId: idNode })
+            nav.navigation.navigate("Description", {
+              mioId: idNode,
+              information: "data",
+            })
           }
           style={styles.btn_node}
         >
@@ -124,7 +130,10 @@ const Item = ({ idNode, nav }) => (
         </Pressable>
         <Pressable
           onPress={() =>
-            nav.navigation.navigate("Description", { mioId: idNode })
+            nav.navigation.navigate("Description", {
+              mioId: idNode,
+              information: "alert",
+            })
           }
           style={styles.btn_node}
         >
