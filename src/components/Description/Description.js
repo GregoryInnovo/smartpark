@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Colors from "../../res/Colors";
 import paradas from "../../res/paradas";
+import logoMetroCali from "./../../assets/LOGO_METROCALI.png";
 
 const HOST_URL = "http://192.168.1.10:3000";
 
@@ -107,36 +108,40 @@ class Description extends React.Component {
       .then((responseJson) => {
         let jsonMIOInfo;
 
-        // set alert information
-        let alertInformation = responseJson[0].alerta;
-        this.setState({ alert: alertInformation });
+        try {
+          // set alert information
+          let alertInformation = responseJson[0].alerta;
+          this.setState({ alert: alertInformation });
 
-        // set bus stop name and total passages
-        paradas["op"].map((item, index) => {
-          if (item.id === responseJson[0].variables[0].estacion) {
-            jsonMIOInfo = {
-              estacion: item.nombreParada,
-              pasajeros: responseJson[0].variables[0].pasajeros,
-            };
-            // console.log("Estacion", item.nombreParada);
-          }
-        });
+          // set bus stop name and total passages
+          paradas["op"].map((item, index) => {
+            if (item.id === responseJson[0].variables[0].estacion) {
+              jsonMIOInfo = {
+                estacion: item.nombreParada,
+                pasajeros: responseJson[0].variables[0].pasajeros,
+              };
+              // console.log("Estacion", item.nombreParada);
+            }
+          });
 
-        // Separar Hora y Fecha
-        let dateTime = responseJson[0].fechaHora;
-        let dateTimeDiv = dateTime.split("T", 2);
+          // Separar Hora y Fecha
+          let dateTime = responseJson[0].fechaHora;
+          let dateTimeDiv = dateTime.split("T", 2);
 
-        let dateData = dateTimeDiv[0];
-        let timeDataDiv = dateTimeDiv[1].split("-", 1);
+          let dateData = dateTimeDiv[0];
+          let timeDataDiv = dateTimeDiv[1].split("-", 1);
 
-        let timeData = timeDataDiv[0];
-        // console.log("the date was", dateData);
-        // console.log("the time was", timeData);
+          let timeData = timeDataDiv[0];
+          // console.log("the date was", dateData);
+          // console.log("the time was", timeData);
 
-        // set the date and time
-        this.setState({ fecha: dateData });
-        this.setState({ hora: timeData });
-        this.setState({ vals: jsonMIOInfo });
+          // set the date and time
+          this.setState({ fecha: dateData });
+          this.setState({ hora: timeData });
+          this.setState({ vals: jsonMIOInfo });
+        } catch (error) {
+          console.log("Not alert information", error);
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -214,6 +219,11 @@ class Description extends React.Component {
             ) : null}
           </View>
         )}
+        <Image
+          resizeMode="contain"
+          source={logoMetroCali}
+          style={styles.img_logo}
+        />
       </View>
     );
   }
@@ -226,7 +236,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.primary,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   },
   infoContainer: {
     backgroundColor: "white",
@@ -278,5 +288,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "sans-serif-condensed",
     marginTop: 12,
+  },
+  img_logo: {
+    width: 240,
+    height: "10%",
   },
 });

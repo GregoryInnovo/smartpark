@@ -3,6 +3,7 @@ import { StyleSheet, Image, Text, View, Pressable } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Colors from "./../../res/Colors";
 import splashImage from "./../../assets/mio-splash.png";
+import logoMetroCali from "./../../assets/LOGO_METROCALI.png";
 
 const Home = ({ navigation }) => {
   return (
@@ -25,6 +26,11 @@ const Home = ({ navigation }) => {
         >
           <Text style={styles.btn_login_text}>Ver rutas en circulación</Text>
         </Pressable>
+        <Image
+          resizeMode="contain"
+          source={logoMetroCali}
+          style={styles.img_logo}
+        />
       </View>
     </View>
   );
@@ -41,6 +47,7 @@ const styles = StyleSheet.create({
   },
   container_information: {
     flex: 1,
+    alignItems: "center",
     justifyContent: "space-evenly",
   },
   input: {
@@ -73,5 +80,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  img_logo: {
+    width: 240,
+    height: "10%",
   },
 });
