@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
 
         <Pressable
           style={styles.btn_login}
-          onPress={() => navigation.navigate("Menú")}
+          onPress={() => navigation.navigate("Rutas")}
         >
           <Text style={styles.btn_login_text}>Ver rutas en circulación</Text>
         </Pressable>

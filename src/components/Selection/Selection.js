@@ -88,7 +88,9 @@ class Selection extends Component {
       },
     ];
 
-    const renderItem = ({ item }) => <Item idNode={item.id_mio_node} />;
+    const renderItem = ({ item }) => (
+      <Item idNode={item.id_mio_node} nav={this.props} />
+    );
 
     return (
       <View style={styles.container}>
@@ -103,7 +105,7 @@ class Selection extends Component {
   }
 }
 
-const Item = ({ idNode }) => (
+const Item = ({ idNode, nav }) => (
   <View style={styles.item}>
     <View style={styles.container_node}>
       <View>
@@ -113,19 +115,17 @@ const Item = ({ idNode }) => (
 
       <View>
         <Pressable
-          onPress={() => {
-            alert(idNode);
-            // console.log(idNode);
-          }}
+          onPress={() =>
+            nav.navigation.navigate("Description", { mioId: idNode })
+          }
           style={styles.btn_node}
         >
           <Text style={styles.btn_text}>Datos</Text>
         </Pressable>
         <Pressable
-          onPress={() => {
-            alert(idNode);
-            // console.log(idNode);
-          }}
+          onPress={() =>
+            nav.navigation.navigate("Description", { mioId: idNode })
+          }
           style={styles.btn_node}
         >
           <Text style={styles.btn_text}>Alerta</Text>

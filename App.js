@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./src/components/Home/Home";
-import Map from "./src/components/Map/Map";
+import Description from "./src/components/Description/Description";
 import Selection from "./src/components/Selection/Selection";
 import Colors from "./src/res/Colors";
 import { NavigationContainer } from "@react-navigation/native";
@@ -41,8 +41,12 @@ export default function App() {
           name="Smart Trip MIO"
           component={Home}
         />
-        <Stack.Screen options={settings} name="Menú" component={Selection} />
-        <Stack.Screen options={settings} name="Map" component={Map} />
+        <Stack.Screen options={settings} name="Rutas" component={Selection} />
+        <Stack.Screen
+          options={settings}
+          name="Description"
+          component={Description}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
