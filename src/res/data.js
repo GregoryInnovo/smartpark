@@ -53,7 +53,7 @@ const zonesMarkersPP = {
   ],
 };
 const zonesMarkersT = {
-  "Tequendama": [
+  Tequendama: [
     {
       latlng: {
         latitude: 3.4199069303328042,
