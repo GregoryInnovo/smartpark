@@ -17,19 +17,34 @@ class Description extends React.Component {
       fecha: "ERR",
       hora: "ERR",
       vals: {},
+      alert: "No ha habido un exceso de pasajeros en el día de hoy",
     };
   }
 
   componentDidMount() {
     let MIO_ID = this.props.route.params.mioId;
+
+    let INFO = this.props.route.params.information;
+
     this.props.navigation.setOptions({
       title: MIO_ID,
     });
 
-    // the last element from the db
-    this.getASpecificElement(MIO_ID);
+    if (INFO === "alert") {
+      // the last element from the db, with last alert
+      this.getASpecificElementAlert(MIO_ID);
+      // console.log("Show alert data");
+    } else {
+      // the last element from the db
+      this.getASpecificElement(MIO_ID);
+      // console.log("Show normal data");
+    }
   }
 
+  /**
+   * Get a specific element from the url query
+   * @param {*} idMio
+   */
   getASpecificElement = async (idMio) => {
     await fetch(`${HOST_URL}/nodos/${idMio}`, {
       method: "GET",
@@ -40,22 +55,10 @@ class Description extends React.Component {
     })
       .then((res) => res.json())
       .then((responseJson) => {
-        let element = [];
-        let idsArray = [];
         let jsonMIOInfo;
-        let limit = Object.keys(paradas["op"]).length;
-        console.log(paradas["op"][0]);
 
-        // console.log(responseJson[0].variables[0].estacion);
-        // console.log(responseJson[0].variables[0].pasajeros);
-
-        // console.log("----");
-
+        // set bus stop name and total passages
         paradas["op"].map((item, index) => {
-          // console.log("FINALLY?", item.nombreParada);
-
-          // console.log(responseJson[0].variables[0].estacion);
-
           if (item.id === responseJson[0].variables[0].estacion) {
             jsonMIOInfo = {
               estacion: item.nombreParada,
@@ -70,7 +73,9 @@ class Description extends React.Component {
         let dateTimeDiv = dateTime.split("T", 2);
 
         let dateData = dateTimeDiv[0];
-        let timeData = dateTimeDiv[1];
+        let timeDataDiv = dateTimeDiv[1].split("-", 1);
+
+        let timeData = timeDataDiv[0];
         // console.log("the date was", dateData);
         // console.log("the time was", timeData);
 
@@ -86,6 +91,63 @@ class Description extends React.Component {
     this.separador();
   };
 
+  /**
+   * Get a specific alert element from the url query
+   * @param {*} idMio
+   */
+  getASpecificElementAlert = async (idMio) => {
+    await fetch(`${HOST_URL}/nodos/alert/${idMio}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((responseJson) => {
+        let jsonMIOInfo;
+
+        // set alert information
+        let alertInformation = responseJson[0].alerta;
+        this.setState({ alert: alertInformation });
+
+        // set bus stop name and total passages
+        paradas["op"].map((item, index) => {
+          if (item.id === responseJson[0].variables[0].estacion) {
+            jsonMIOInfo = {
+              estacion: item.nombreParada,
+              pasajeros: responseJson[0].variables[0].pasajeros,
+            };
+            // console.log("Estacion", item.nombreParada);
+          }
+        });
+
+        // Separar Hora y Fecha
+        let dateTime = responseJson[0].fechaHora;
+        let dateTimeDiv = dateTime.split("T", 2);
+
+        let dateData = dateTimeDiv[0];
+        let timeDataDiv = dateTimeDiv[1].split("-", 1);
+
+        let timeData = timeDataDiv[0];
+        // console.log("the date was", dateData);
+        // console.log("the time was", timeData);
+
+        // set the date and time
+        this.setState({ fecha: dateData });
+        this.setState({ hora: timeData });
+        this.setState({ vals: jsonMIOInfo });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    this.separador();
+  };
+
+  /**
+   * Separate the MIO id in Strings
+   */
   separador = () => {
     let cadena = this.props.route.params.mioId;
     let cadenaDivida = cadena.split("-", 3);
@@ -94,8 +156,8 @@ class Description extends React.Component {
   };
 
   render() {
-    const { information, mioId } = this.props.route.params;
-    const { ruta, placa, fecha, hora, vals } = this.state;
+    const { information } = this.props.route.params;
+    const { ruta, placa, fecha, hora, vals, alert } = this.state;
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
@@ -122,7 +184,7 @@ class Description extends React.Component {
             <Text style={styles.infoDescription}>
               El número total de pasajeros actualmente es de {vals.pasajeros}, y
               la última parada donde el MIO paso fue: {vals.estacion}. La última
-              actualización de la ruta fue {fecha} en las horas {hora}.
+              actualización de la ruta fue {fecha} a las {hora}.
             </Text>
           </View>
         ) : (
@@ -143,8 +205,13 @@ class Description extends React.Component {
               <Text style={styles.relatedTitle}>Placa:</Text>
               <Text style={styles.relatedTitleInfo}>{placa}</Text>
             </View>
-
-            <Text style={styles.infoDescription}>{information}</Text>
+            <Text style={styles.infoDescriptionAlert}>{alert}</Text>
+            {hora != "ERR" ? (
+              <Text style={styles.infoDescription}>
+                A las {hora} en la estación {vals.estacion} con una cantidad de
+                pasajeros de {vals.pasajeros}.
+              </Text>
+            ) : null}
           </View>
         )}
       </View>
@@ -199,6 +266,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginRight: 8,
     color: Colors.primary,
+  },
+  infoDescriptionAlert: {
+    fontSize: 12,
+    fontFamily: "sans-serif-condensed",
+    color: "red",
+    fontWeight: "bold",
+    marginTop: 12,
   },
   infoDescription: {
     fontSize: 12,
