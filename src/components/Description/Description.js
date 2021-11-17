@@ -19,7 +19,8 @@ class Description extends React.Component {
       placa: "ERR",
       fecha: "ERR",
       hora: "ERR",
-      vals: {},
+      pasajero: "ERR",
+      estacion: "ERR",
       alert: "No ha habido un exceso de pasajeros en el día de hoy",
       loading: false,
     };
@@ -64,15 +65,25 @@ class Description extends React.Component {
     })
       .then((res) => res.json())
       .then((responseJson) => {
-        let jsonMIOInfo;
+        let jsonMIOPasajero;
+        let jsonMIOEstacion;
 
+        let variables = responseJson[0].variables;
+        let variablesDiv = variables.split("-", 2);
+
+        // let dateTime = responseJson[0].fechaHora;
+        // let dateTimeDiv = dateTime.split("T", 2);
+
+        let pasajerosJson = variablesDiv[0];
+        let estacionJson = variablesDiv[1];
+        console.log("pasajerosJson", pasajerosJson);
+        console.log("estacionJson", estacionJson);
         // set bus stop name and total passages
         paradas["op"].map((item, index) => {
-          if (item.id === responseJson[0].variables[0].estacion) {
-            jsonMIOInfo = {
-              estacion: item.nombreParada,
-              pasajeros: responseJson[0].variables[0].pasajeros,
-            };
+          if (item.id == estacionJson) {
+            jsonMIOEstacion = item.nombreParada;
+            jsonMIOPasajero = pasajerosJson;
+
             // console.log("Estacion", item.nombreParada);
           }
         });
@@ -93,7 +104,8 @@ class Description extends React.Component {
         // set the date and time
         this.setState({ fecha: dateData });
         this.setState({ hora: timeData });
-        this.setState({ vals: jsonMIOInfo });
+        this.setState({ pasajero: jsonMIOPasajero });
+        this.setState({ estacion: jsonMIOEstacion });
 
         // Remove activity indicator
         this.setState({
@@ -177,7 +189,7 @@ class Description extends React.Component {
 
   render() {
     const { information } = this.props.route.params;
-    const { ruta, placa, fecha, hora, vals, alert } = this.state;
+    const { ruta, placa, fecha, hora, pasajero, estacion, alert } = this.state;
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
@@ -202,8 +214,8 @@ class Description extends React.Component {
             </View>
 
             <Text style={styles.infoDescription}>
-              El número total de pasajeros actualmente es de {vals.pasajeros}, y
-              la última parada donde el MIO paso fue: {vals.estacion}. La última
+              El número total de pasajeros actualmente es de {pasajero}, y la
+              última parada donde el MIO paso fue: {estacion}. La última
               actualización de la ruta fue el {fecha} a las {hora}.
             </Text>
           </View>
@@ -228,8 +240,8 @@ class Description extends React.Component {
             <Text style={styles.infoDescriptionAlert}>{alert}</Text>
             {hora != "ERR" ? (
               <Text style={styles.infoDescription}>
-                A las {hora} en la estación {vals.estacion} con una cantidad de
-                pasajeros de {vals.pasajeros}.
+                A las {hora} en la estación {estacion} con una cantidad de
+                pasajeros de {pasajero}.
               </Text>
             ) : null}
           </View>
