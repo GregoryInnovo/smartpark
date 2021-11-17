@@ -5,7 +5,9 @@ import Colors from "../../res/Colors";
 import paradas from "../../res/paradas";
 import logoMetroCali from "./../../assets/LOGO_METROCALI.png";
 
-const HOST_URL = "http://192.168.1.10:3000";
+const host_name = "http://192.168.1.10";
+const host_amazon_name = "ec2-54-90-171-212.compute-1.amazonaws.com";
+const HOST_URL = `${host_name}:3000`;
 
 class Description extends React.Component {
   constructor() {
@@ -80,9 +82,11 @@ class Description extends React.Component {
         let dateTimeDiv = dateTime.split("T", 2);
 
         let dateData = dateTimeDiv[0];
-        let timeDataDiv = dateTimeDiv[1].split("-", 1);
 
-        let timeData = timeDataDiv[0];
+        let timeData = dateTimeDiv[1];
+        // let timeDataDiv = dateTimeDiv[1].split("-", 1);
+
+        // let timeData = timeDataDiv[0];
         // console.log("the date was", dateData);
         // console.log("the time was", timeData);
 

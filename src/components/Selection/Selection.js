@@ -9,7 +9,9 @@ import {
 } from "react-native";
 import Colors from "./../../res/Colors";
 
-const HOST_URL = "http://192.168.1.10:3000";
+const host_name = "http://192.168.1.10";
+const host_amazon_name = "ec2-54-90-171-212.compute-1.amazonaws.com";
+const HOST_URL = `${host_name}:3000`;
 
 class Selection extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class Selection extends Component {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
+      .then(async (res) => await res.json())
       .then((responseJson) => {
         let element = [];
         let idsArray = [];
@@ -46,12 +48,12 @@ class Selection extends Component {
         // console.log("-------------");
         for (let index = 0; index < limit; index++) {
           let jsonData = {
-            id: responseJson[index]["_id"],
-            id_mio_node: responseJson[index]["id-mio-node"],
+            id: responseJson[index]["id"],
+            id_mio_node: responseJson[index]["id_mio_node"],
           };
-          // console.log(idsArray.includes(responseJson[index]["id-mio-node"]));
+          // console.log(idsArray.includes(responseJson[index]["id_mio_node"]));
 
-          if (idsArray.includes(responseJson[index]["id-mio-node"])) {
+          if (idsArray.includes(responseJson[index]["id_mio_node"])) {
             // the data is repeated
             // console.log("no push");
           } else {
@@ -59,7 +61,7 @@ class Selection extends Component {
             // console.log("push");
             element.push(jsonData);
           }
-          idsArray.push(responseJson[index]["id-mio-node"]);
+          idsArray.push(responseJson[index]["id_mio_node"]);
         }
 
         // console.log(element);
@@ -72,7 +74,10 @@ class Selection extends Component {
         });
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("NOT CONECCTION", error);
+        // setTimeout(() => {
+        //   this.props.navigation.goBack();
+        // }, 2000);
       });
   };
 
