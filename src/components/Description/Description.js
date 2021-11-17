@@ -6,8 +6,8 @@ import paradas from "../../res/paradas";
 import logoMetroCali from "./../../assets/LOGO_METROCALI.png";
 
 const host_name = "http://192.168.1.10";
-const host_amazon_name = "ec2-54-90-171-212.compute-1.amazonaws.com";
-const HOST_URL = `${host_name}:3000`;
+const host_amazon_name = "http://ec2-54-160-166-17.compute-1.amazonaws.com";
+const HOST_URL = `${host_amazon_name}:3000`;
 
 class Description extends React.Component {
   constructor() {
