@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "smartpark",
-    "slug": "smartpark",
+    "name": "oilgon",
+    "slug": "oilgon",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +20,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "mediacollab.smartpark",
+      "package": "mediacollab.oilgon",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

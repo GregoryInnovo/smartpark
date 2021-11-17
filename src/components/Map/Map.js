@@ -30,12 +30,12 @@ class Map extends React.Component {
 
     let { zoneName } = this.props.route.params;
 
-    if (zoneName === "Parque del Perro") {
-      let limit = Object.keys(data.zonesMarkersPP["Parque del Perro"]).length;
+    if (zoneName === "Establecimientos Carrera 66") {
+      let limit = Object.keys(data.zonesMarkersPP["Establecimientos Carrera 66"]).length;
       console.log(limit);
       let element = [];
       for (let index = 0; index < limit; index++) {
-        element.push(data.zonesMarkersPP["Parque del Perro"][index]);
+        element.push(data.zonesMarkersPP["Establecimientos Carrera 66"][index]);
         // console.log(data.zonesMarkersPP["Parque del Perro"][index]);
         // console.log("------------------");
       }
@@ -44,12 +44,12 @@ class Map extends React.Component {
       });
 
       this.cambiarRegion(0);
-    } else if (zoneName === "Tequendama") {
-      let limit = Object.keys(data.zonesMarkersT["Tequendama"]).length;
+    } else if (zoneName === "Establecimientos Calle 16") {
+      let limit = Object.keys(data.zonesMarkersT["Establecimientos Calle 16"]).length;
       console.log(limit);
       let element = [];
       for (let index = 0; index < limit; index++) {
-        element.push(data.zonesMarkersT["Tequendama"][index]);
+        element.push(data.zonesMarkersT["Establecimientos Calle 16"][index]);
         // console.log(data.zonesMarkersT["Tequendama"][index]);
         // console.log("------------------");
       }
@@ -58,24 +58,7 @@ class Map extends React.Component {
       });
 
       this.cambiarRegion(1);
-    } else if (zoneName === "Santa Helena") {
-      /**
-       * Sergio code
-       */
-      let limit = Object.keys(data.zonesMarkersSH["Santa Helena"]).length;
-      console.log(limit);
-      let element = [];
-      for (let index = 0; index < limit; index++) {
-        element.push(data.zonesMarkersSH["Santa Helena"][index]);
-        // console.log(data.zonesMarkersSH["Santa Helena"][index]);
-        // console.log("------------------");
-      }
-      this.setState({
-        markers: element,
-      });
-
-      this.cambiarRegion(2);
-    }
+    } 
   }
 
   cambiarRegion = (val) => {

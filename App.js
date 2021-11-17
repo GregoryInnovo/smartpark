@@ -2,6 +2,7 @@ import React from "react";
 import Home from "./src/components/Home/Home";
 import Map from "./src/components/Map/Map";
 import Selection from "./src/components/Selection/Selection";
+//import Colors from "./src/res/Colors";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
@@ -23,13 +24,24 @@ export default function App() {
       });
   };
 
+  /*const settings = {
+    headerStyle: {
+      backgroundColor: Colors.secondary,
+    },
+    headerTintColor: Colors.white,
+    headerTitleStyle: {
+      fontWeight: "bold",
+    },
+  };*/
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+        //options={settings}
           name="Home"
           component={Home}
-          options={{ title: "Bienvenid@" }}
+          options={{ title: "Bidones Inteligentes" }}
         />
         <Stack.Screen name="Menú" component={Selection} />
         <Stack.Screen name="Map" component={Map} />

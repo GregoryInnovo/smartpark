@@ -6,15 +6,14 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={styles.textTitle}>Smart Park</Text>
+      <Text style={styles.textTitle}>OilGon</Text>
       <Text style={styles.textDescription}>
-        Bienvenid@ a Smart Park, en el siguiente botón irás al menú de selección
-        para escoger que zonas deseas y saber la disponibilidad de un
-        parqueadero.
+        Este es un aplicativo que le permite conocer los establecimientos comerciales
+        registrados que cuentan con un bidón inteligente para la recolección de aceite usado.
       </Text>
 
       <Button
-        title="Ir al menú de selección"
+        title="Ingresar"
         onPress={() => navigation.navigate("Menú")}
       />
     </View>

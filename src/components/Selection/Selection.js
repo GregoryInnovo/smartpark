@@ -15,7 +15,8 @@ const Selection = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text>Escoge la zona en la que buscas parqueaderos</Text>
+        <Separator />
+        <Text>Zonas de recolección</Text>
         <StatusBar style="auto" />
 
         <Separator />
@@ -29,10 +30,10 @@ const Selection = ({ navigation }) => {
 
         <Separator />
 
-        <Text>Pública</Text>
+      
         <Button
-          title="Parque del Perro"
-          onPress={() => navigation.navigate("Map", {zoneName: "Parque del Perro"})}
+          title="Establecimientos Carrera 66"
+          onPress={() => navigation.navigate("Map", {zoneName: "Establecimientos Carrera 66"})}
         />
 
         <Separator />
@@ -46,30 +47,14 @@ const Selection = ({ navigation }) => {
 
         <Separator />
 
-        <Text>Pública</Text>
+     
         <Button
-          title="Tequendama"
-          onPress={() => navigation.navigate("Map", {zoneName: "Tequendama"})}
+          title="Establecimientos Calle 16"
+          onPress={() => navigation.navigate("Map", {zoneName: "Establecimientos Calle 16"})}
         />
 
         <Separator />
 
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://lh3.googleusercontent.com/proxy/wO9mhm18uwdtg2NxT7fDs9pYlzZ1i1Hbq796jlP1_dFkfSkDZUX8EG5l3xEji9-AhtVAwQktllKwxxMtQtorCkFLXxfS2Z7-LUadfbOwX2vAJkGPq2yGtvZj7SBB5Ey1DmR-_Q",
-          }}
-        />
-
-        <Separator />
-
-        <Text>Pública</Text>
-        <Button
-          title="Santa Helena"
-          onPress={() => navigation.navigate("Map", {zoneName: "Santa Helena"})}
-        />
-
-        <Separator />
       </View>
     </ScrollView>
   );
