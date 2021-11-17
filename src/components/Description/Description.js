@@ -68,44 +68,48 @@ class Description extends React.Component {
         let jsonMIOPasajero;
         let jsonMIOEstacion;
 
-        let variables = responseJson[0].variables;
-        let variablesDiv = variables.split("-", 2);
+        try {
+          let variables = responseJson[0].variables;
+          let variablesDiv = variables.split("-", 2);
 
-        // let dateTime = responseJson[0].fechaHora;
-        // let dateTimeDiv = dateTime.split("T", 2);
+          // let dateTime = responseJson[0].fechaHora;
+          // let dateTimeDiv = dateTime.split("T", 2);
 
-        let pasajerosJson = variablesDiv[0];
-        let estacionJson = variablesDiv[1];
-        console.log("pasajerosJson", pasajerosJson);
-        console.log("estacionJson", estacionJson);
-        // set bus stop name and total passages
-        paradas["op"].map((item, index) => {
-          if (item.id == estacionJson) {
-            jsonMIOEstacion = item.nombreParada;
-            jsonMIOPasajero = pasajerosJson;
+          let pasajerosJson = variablesDiv[0];
+          let estacionJson = variablesDiv[1];
+          console.log("pasajerosJson", pasajerosJson);
+          console.log("estacionJson", estacionJson);
+          // set bus stop name and total passages
+          paradas["op"].map((item, index) => {
+            if (item.id == estacionJson) {
+              jsonMIOEstacion = item.nombreParada;
+              jsonMIOPasajero = pasajerosJson;
 
-            // console.log("Estacion", item.nombreParada);
-          }
-        });
+              // console.log("Estacion", item.nombreParada);
+            }
+          });
 
-        // Separar Hora y Fecha
-        let dateTime = responseJson[0].fechaHora;
-        let dateTimeDiv = dateTime.split("T", 2);
+          // Separar Hora y Fecha
+          let dateTime = responseJson[0].fechaHora;
+          let dateTimeDiv = dateTime.split("T", 2);
 
-        let dateData = dateTimeDiv[0];
+          let dateData = dateTimeDiv[0];
 
-        let timeData = dateTimeDiv[1];
-        // let timeDataDiv = dateTimeDiv[1].split("-", 1);
+          let timeData = dateTimeDiv[1];
+          // let timeDataDiv = dateTimeDiv[1].split("-", 1);
 
-        // let timeData = timeDataDiv[0];
-        // console.log("the date was", dateData);
-        // console.log("the time was", timeData);
+          // let timeData = timeDataDiv[0];
+          // console.log("the date was", dateData);
+          // console.log("the time was", timeData);
 
-        // set the date and time
-        this.setState({ fecha: dateData });
-        this.setState({ hora: timeData });
-        this.setState({ pasajero: jsonMIOPasajero });
-        this.setState({ estacion: jsonMIOEstacion });
+          // set the date and time
+          this.setState({ fecha: dateData });
+          this.setState({ hora: timeData });
+          this.setState({ pasajero: jsonMIOPasajero });
+          this.setState({ estacion: jsonMIOEstacion });
+        } catch (err) {
+          console.log("no return data", err);
+        }
 
         // Remove activity indicator
         this.setState({
@@ -133,20 +137,33 @@ class Description extends React.Component {
     })
       .then((res) => res.json())
       .then((responseJson) => {
-        let jsonMIOInfo;
-
         try {
+          let jsonMIOInfo;
+          let jsonMIOPasajero;
+
+          let jsonMIOEstacion;
+
+          let variables = responseJson[0].variables;
+          let variablesDiv = variables.split("-", 2);
+
+          // let dateTime = responseJson[0].fechaHora;
+          // let dateTimeDiv = dateTime.split("T", 2);
+
+          let pasajerosJson = variablesDiv[0];
+          let estacionJson = variablesDiv[1];
           // set alert information
           let alertInformation = responseJson[0].alerta;
           this.setState({ alert: alertInformation });
 
           // set bus stop name and total passages
           paradas["op"].map((item, index) => {
-            if (item.id === responseJson[0].variables[0].estacion) {
-              jsonMIOInfo = {
-                estacion: item.nombreParada,
-                pasajeros: responseJson[0].variables[0].pasajeros,
-              };
+            if (item.id == estacionJson) {
+              // jsonMIOInfo = {
+              //   estacion: item.nombreParada,
+              //   pasajeros: responseJson[0].variables[0].pasajeros,
+              // };
+              jsonMIOEstacion = item.nombreParada;
+              jsonMIOPasajero = pasajerosJson;
               // console.log("Estacion", item.nombreParada);
             }
           });
@@ -156,16 +173,19 @@ class Description extends React.Component {
           let dateTimeDiv = dateTime.split("T", 2);
 
           let dateData = dateTimeDiv[0];
-          let timeDataDiv = dateTimeDiv[1].split("-", 1);
 
-          let timeData = timeDataDiv[0];
+          let timeData = dateTimeDiv[1];
+          // let timeDataDiv = dateTimeDiv[1].split("-", 1);
+
+          // let timeData = timeDataDiv[0];
           // console.log("the date was", dateData);
           // console.log("the time was", timeData);
 
           // set the date and time
           this.setState({ fecha: dateData });
           this.setState({ hora: timeData });
-          this.setState({ vals: jsonMIOInfo });
+          this.setState({ pasajero: jsonMIOPasajero });
+          this.setState({ estacion: jsonMIOEstacion });
         } catch (error) {
           console.log("Not alert information", error);
         }

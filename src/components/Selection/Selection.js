@@ -75,9 +75,6 @@ class Selection extends Component {
       })
       .catch(function (error) {
         console.log("NOT CONECCTION", error);
-        // setTimeout(() => {
-        //   this.props.navigation.goBack();
-        // }, 2000);
       });
   };
 
