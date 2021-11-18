@@ -11,54 +11,124 @@ import { StatusBar } from "expo-status-bar";
 
 const Separator = ({ navigation }) => <View style={styles.separator} />;
 
-const Selection = ({ navigation }) => {
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Separator />
-        <Text>Zonas de recolección</Text>
-        <StatusBar style="auto" />
+class Selection extends React.Component {
 
-        <Separator />
+  constructor(props) {
+    super(props);
 
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/2/21/30-029_Parque_Perro_cali.JPG",
-          }}
-        />
+    this.state = {
+      bid_data: [],
+      loading: false,
+    };
+  }
 
-        <Separator />
+  componentDidMount() {
+    this.getData();
+  }
 
-      
-        <Button
-          title="Establecimientos Carrera 66"
-          onPress={() => navigation.navigate("Map", {zoneName: "Establecimientos Carrera 66"})}
-        />
+  getData = async () => {
+    let URL = "http://192.168.20.24:3000/nodos";
 
-        <Separator />
+    fetch(URL)
+      .then(async (response) => await response.json())
+      .then((responseJson) => {
+        // console.log(responseJson)
+        let element = [];
+        let idsArray = [];
+        let limit = responseJson.length;
+        console.log(limit);
+        for (let index = 0; index < limit; index++) {
 
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://i.pinimg.com/originals/42/f4/fa/42f4fa61bf46e2367eec2db468ce8445.jpg",
-          }}
-        />
+          let establecimientos;
+          if (responseJson[index]["Nodo"] == 1) {
+            establecimientos = "Establecimientos Carrera 66"
+          } else if (responseJson[index]["Nodo"] == 2) {
+            establecimientos = "Establecimientos Carrera 16"
+          } else if (responseJson[index]["Nodo"] == 3) {
+            establecimientos = "Establecimientos Carrera 54"
+          }
 
-        <Separator />
+          let jsonData = {
+            id: responseJson[index]["_id"],
+            idNodo: responseJson[index]["Nodo"],
+            nombreEstablecimiento: establecimientos,
+          };
+          // console.log(idsArray.includes(responseJson[index]["id-mio-node"]));
 
-     
-        <Button
-          title="Establecimientos Calle 16"
-          onPress={() => navigation.navigate("Map", {zoneName: "Establecimientos Calle 16"})}
-        />
+          if (idsArray.includes(responseJson[index]["Nodo"])) {
+            // the data is repeated
+            // console.log("no push");
+          } else {
+            // the data is not repeated
+            // console.log("push");
+            element.push(jsonData);
+          }
+          idsArray.push(responseJson[index]["Nodo"]);
+        }
+        console.log(element)
+        this.setState({ bid_data: element })
 
-        <Separator />
+        /*const jsonData = (this.state.bid_data[0]["nombreEstablecimiento"]);
+        console.log("-------------------------------------------")
+        console.log("a", jsonData)*/
+      });
 
-      </View>
-    </ScrollView>
-  );
+  }
+  render() {
+    const { navigation } = this.props;
+
+    return (
+      <ScrollView>
+        <View style={styles.container}>
+          <Separator />
+          <Text>Zonas de recolección</Text>
+          <StatusBar style="auto" />
+
+          <Separator />
+          {
+
+            this.state.bid_data.map((data, index) => {
+              return (
+                <>
+                  <Text>
+                    Nodo del bidón es: {index + 1}
+                  </Text>
+
+                  <Text>
+                    {this.state.bid_data[index]["nombreEstablecimiento"]}
+                  </Text>
+
+
+                  <Image
+                    style={styles.tinyLogo}
+                    source={{
+                      uri: "https://upload.wikimedia.org/wikipedia/commons/2/21/30-029_Parque_Perro_cali.JPG",
+                    }}
+                  />
+
+                  <Separator />
+
+
+                  <Button
+                  style={{marginTop: 20}}
+                    title={this.state.bid_data[index]["nombreEstablecimiento"]}
+                    // onPress={() => navigation.navigate("Map", {zoneName: "Establecimientos Carrera 66"})}
+                    onPress={() => navigation.navigate("Data", { idNodo: this.state.bid_data[index]["idNodo"] , location: this.state.bid_data[index]["nombreEstablecimiento"]})}
+                  />
+                </>
+              )
+            })
+          }
+
+        </View>
+      </ScrollView>
+    );
+  }
 };
+
+// const Item = () => (
+
+// )
 
 export default Selection;
 

@@ -1,11 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Image
+        style={styles.tinyLogo}
+        resizeMode="contain"
+        source={{
+          uri: 'https://www.archena.es/images/TuAytoportemas/medioambiente/recicladoaceitecocina1.gif',
+        }}
+      />
       <Text style={styles.textTitle}>OilGon</Text>
       <Text style={styles.textDescription}>
         Este es un aplicativo que le permite conocer los establecimientos comerciales
@@ -27,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
   input: {
     height: 40,
@@ -44,4 +51,8 @@ const styles = StyleSheet.create({
     textAlign: "justify",
     padding: 14,
   },
+  tinyLogo: {
+    width: 222,
+    height: 200,
+  }
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./src/components/Home/Home";
-import Map from "./src/components/Map/Map";
+import Data from "./src/components/Data/Data";
 import Selection from "./src/components/Selection/Selection";
 //import Colors from "./src/res/Colors";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,15 +9,12 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   verificarUsuario = () => {
-    let URL = "https://foodhyapi.herokuapp.com/api/v1/products/7702354929657";
+    let URL = "localhost:3000/nodos";
 
     fetch(URL)
       .then(async (response) => response.json())
       .then((res) => {
-        /**
-         * Logica si el usuario y contrseña es correcta
-         *
-         */
+        console.log(res)
         // if() {
         // } else {
         // }
@@ -44,7 +41,7 @@ export default function App() {
           options={{ title: "Bidones Inteligentes" }}
         />
         <Stack.Screen name="Menú" component={Selection} />
-        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="Data" component={Data} />
       </Stack.Navigator>
     </NavigationContainer>
   );
